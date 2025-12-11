@@ -326,3 +326,18 @@ Table 2: Recommended detections derived from Q1–Q8
 
 ---
 
+# References
+[1] A. Nelson, S. Rekhi, M. Souppaya, and K. Scarfone, “Incident Response Recommendations and Considerations for Cybersecurity Risk Management”:, NIST, Apr. 2025, doi: https://doi.org/10.6028/nist.sp.800-61r3. Available: https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-61r3.pdf  
+[2] Splunk, “Boss of the SOC (BOTS) Dataset Version 3,” GitHub, Mar. 26, 2022. Available: https://github.com/splunk/botsv3  
+[3] NIST, “Cybersecurity Log Management Planning Guide,” Cybersecurity Log Management Planning Guide, Jan. 2023, doi: https://doi.org/10.6028/nist.sp.800-92r1.ipd  
+[4] MITRE Corporation, “Create Account: Local Account, Sub-technique T1136.001 - Enterprise | MITRE ATT&CK®,” attack.mitre.org, 2020. Available: https://attack.mitre.org/techniques/T1136/001/  
+[5] Microsoft, “Audit Security Group Management - Windows 10,” learn.microsoft.com, Sep. 06, 2021. Available: https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/audit-security-group-management  
+[6] MITRE ATT&CK, “Phishing, Technique T1566 - Enterprise | MITRE ATT&CK®,” attack.mitre.org, Mar. 02, 2020. Available: https://attack.mitre.org/techniques/T1566/  
+[7] Microsoft Sysinternals, “Sysmon - Windows Sysinternals,” learn.microsoft.com, Jul. 23, 2024. Available: https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon  
+[8] Microsoft, “4720(S) A user account was created. - Windows 10,” learn.microsoft.com, Sep. 07, 2021. Available: https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4720  
+
+---
+
+# Appendix
+- Youtube link : https://youtu.be/sW-e9kXZ7CY  
+- GitHub reposotory: (add link here)
