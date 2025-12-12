@@ -107,7 +107,7 @@ The environment was run via a **VM-based setup**, reflecting SOC lab practice be
 - controlled resource allocation.
 
 **Operational evidence**
-![Figure 1](Picture1.JPG)
+![Figure 1](Picture1.jpeg)
 - Splunk web login page reachable (Fig. 1).
 - VirtualBox VM exists and was used for BOTSv3 work (Fig. 2).
 
