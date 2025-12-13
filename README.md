@@ -196,3 +196,23 @@ Sysmon is high-value because it can confirm execution rather than only delivery.
 - Correlate with account activity and privilege changes (Q5/Q6).
 
 ---
+## Q4 — Linux account creation evidence (persistence)
+
+### Answer
+ilovedavidverve
+
+### SPL used
+`index="botsv3" host=hoth sourcetype="osquery:results" useradd "columns.owner_uid"=0`
+
+### Evidence
+Fig. 8 and Fig. 9 show `useradd` with root context and the created username.
+
+### SOC interpretation
+Creating a new local account on a Linux host is a classic persistence action. The evidence shows root ownership (owner_uid=0), which strongly suggests privileged compromise. In SOC response practice, this is immediately actionable: the account must be disabled/removed, and authentication logs reviewed to determine if it was used for remote access [4].
+
+### SOC containment actions (conceptual)
+- Disable or remove the account and investigate authorized changes.
+- Search for additional persistence on the host (cron/systemd/SSH keys).
+- Review suspicious listening services (Q7) and process lineage.
+
+---
