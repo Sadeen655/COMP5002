@@ -136,3 +136,44 @@ index=botsv3 sourcetype="osquery:results"
 
 
 In a SOC, incorrect sourcetype parsing or time parsing breaks correlation and can cause false conclusions. In this assessment, successful search results across each domain (Figures 3–10) indicate that the dataset is sufficiently prepared for analysis.
+
+
+4. Guided questions Q1–Q8
+4.1 Summary table
+Q	What was identified	Final Answer	Log source (domain)	Evidence
+Q1	Suspicious User-Agent	NaenaraBrowser/3.5b4 UA string	O365 management (cloud)	Fig. 3
+Q2	Malicious attachment filename	Frothly-Brewery-Financial-Planning-FY2019-Draft.xlsm	SMTP (email)	Fig. 4
+Q3	Suspicious executable	HxTsr.exe	Sysmon (endpoint)	Fig. 5
+Q4	Linux account created	ilovedavidverve	osquery (endpoint)	Fig. 6
+Q5	Windows account created	svcvnc	Win Security (identity)	Fig. 7
+Q6	Groups added to	administrators,user	Win Security (privilege)	Fig. 8
+Q7	PID listening on port 1337	14356	osquery (network/endpoint)	Fig. 9
+Q8	MD5 hash	586ef56f4d8963dd546163ac31c865d7	Sysmon (endpoint)	Fig. 10
+4.2 Detailed analysis
+Q1 — Suspicious User-Agent from O365 management activity
+
+Answer
+
+Mozilla/5.0 (X11; U; Linux i686; ko-KP; rv: 19.1br) Gecko/20130508 Fedora/1.9.1-2.5.rs3.0 NaenaraBrowser/3.5b4
+
+
+SPL used
+
+index=botsv3 sourcetype="ms:o365:management" SourceFileExtension=lnk
+
+
+Evidence
+
+Fig. 3 and Fig. 4 show the relevant O365 event and context.
+
+SOC interpretation
+A rare User-Agent is a practical cloud anomaly signal. SOC teams often baseline “normal” clients (Chrome/Edge/Office apps) and flag unusual strings, especially when paired with sensitive actions such as access to corporate SharePoint/OneDrive artefacts. Here, the UA suggests a non-standard browser and potentially a non-standard host profile. This would be treated as a triage-to-investigation escalation trigger:
+“Is this a legitimate device/app, or a threat actor using compromised credentials?”
+
+Next pivots a SOC would run
+
+Search for the same UA across time to assess scope.
+
+Pivot by user/account and compare IP geography and device patterns.
+
+Identify what objects were accessed (especially shortcuts or scripts).
