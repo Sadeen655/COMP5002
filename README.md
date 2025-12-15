@@ -62,3 +62,38 @@ This mix is similar to what a SOC ingests in practice: cloud audit + email telem
 - BOTSv3 is treated as “ground truth telemetry” suitable for incident reconstruction, without performing external host forensics.
 
 ---
+## 2. SOC roles and incident handling reflection
+
+### 2.1 Tiered responsibilities in this investigation
+SOC work is commonly separated into tiers:
+
+**Tier 1 (Monitoring & triage)**
+- Identify unusual behaviour, confirm whether it deserves escalation, and collect initial context (account, host, time window, key indicators).
+- In BOTSv3, Tier 1 work includes recognising unusual User-Agent strings, suspicious attachments, and unusual ports.
+
+**Tier 2 (Investigation & response)**
+- Build a timeline across sources, determine the extent of compromise, confirm attacker actions (persistence, privilege escalation), and produce actionable response steps.
+- In this case, Tier 2 correlation connects macro-enabled delivery → suspicious process → account creation → admin membership → listening service.
+
+**Tier 3 (Detection engineering & threat hunting)**
+- Convert what was learned into improved detections, dashboards, and response playbooks.
+- For this dataset, that means creating correlation searches such as “new account + admin group add within 30 minutes,” and tuning baselines for rare User-Agents.
+
+### 2.2 Incident handling lifecycle mapping
+This investigation aligns with a standard incident handling lifecycle:
+
+**Preparation (Prevent/Ready)**
+- Ensure Splunk is operational, data is ingested, and key sourcetypes are available. Without this, later questions cannot be answered reliably.
+
+**Detection & analysis**
+- Identify indicators in cloud/email logs and confirm behavioural evidence in endpoint/identity logs.
+
+**Containment & eradication**
+- Derive what an analyst would do in a real SOC: isolate affected hosts, disable malicious accounts, remove elevated privileges, block hashes, and search for lateral spread.  
+[1]
+
+**Recovery & lessons learned**
+- Strengthen correlation logic, tune alerting thresholds, and improve visibility gaps (e.g., ensure group management auditing is enabled and consistently monitored).  
+[5]
+
+---
