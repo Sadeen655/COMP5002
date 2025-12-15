@@ -158,3 +158,21 @@ A rare User-Agent is a practical cloud anomaly signal. SOC teams often baseline 
 - Identify what objects were accessed (especially shortcuts or scripts).
 
 ---
+## Q2 — Malicious attachment filename in SMTP logs
+
+### Answer
+Frothly-Brewery-Financial-Planning-FY2019-Draft.xlsm
+
+### SPL used
+`index=botsv3 sourcetype="stream:smtp" "attach_filename{}"="Malware Alert Text.txt"`
+
+### Evidence
+Fig. 5 and Fig. 6 show the SMTP event and the attachment-related content.
+
+### SOC interpretation
+Macro-enabled Office documents (.xlsm) are common initial payload containers. In a real SOC, the key investigative question becomes: “Did any user open it and did it lead to code execution?” That pivots directly into endpoint telemetry (Sysmon), which is exactly what Q3 supports. SOC response at this point would include retro-hunting for other recipients and isolating the targeted endpoints.
+
+### Why Q2 matters operationally
+Email is a high-volume channel; SOC teams need sharp filters (attachment type + sender + subject patterns + content indicators) to reduce noise and focus on suspicious delivery.
+
+---
