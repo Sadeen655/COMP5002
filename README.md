@@ -97,3 +97,22 @@ This investigation aligns with a standard incident handling lifecycle:
 [5]
 
 ---
+
+## 3. Splunk deployment, onboarding, and data validation
+
+### 3.1 Deployment rationale (SOC view)
+The environment was run via a **VM-based setup**, reflecting SOC lab practice because it supports:
+- repeatability (snapshots and stable configuration),
+- isolation (safe testing without affecting production),
+- controlled resource allocation.
+
+**Operational evidence**
+- Splunk web login page reachable (Fig. 1).
+- VirtualBox VM exists and was used for BOTSv3 work (Fig. 2).
+
+### 3.2 Data ingestion and readiness checks
+A SOC analyst should not begin investigation until the following are verified:
+
+**(A) Index visibility**
+```spl
+index=botsv3 | head 10
