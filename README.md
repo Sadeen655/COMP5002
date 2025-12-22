@@ -176,3 +176,23 @@ Macro-enabled Office documents (.xlsm) are common initial payload containers. In
 Email is a high-volume channel; SOC teams need sharp filters (attachment type + sender + subject patterns + content indicators) to reduce noise and focus on suspicious delivery.
 
 ---
+## Q3 — Suspicious executable linked to the XLSM chain
+
+### Answer
+HxTsr.exe
+
+### SPL used
+`index="botsv3" sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" xlsm`
+
+### Evidence
+Fig. 7 shows Sysmon evidence referencing the spreadsheet and the executable.
+
+### SOC interpretation
+Sysmon is high-value because it can confirm execution rather than only delivery. The presence of HxTsr.exe associated with the XLSM trail indicates a likely payload stage: a malicious process being invoked after the user interacts with the document (or a chained process initiated by it). At this stage, SOC confidence increases significantly because behaviour is no longer merely “suspicious content,” but an observable endpoint action [6].
+
+### SOC next steps
+- Find all occurrences of HxTsr.exe across endpoints (Image=...) and extract hashes.
+- Identify parent process / command line for context.
+- Correlate with account activity and privilege changes (Q5/Q6).
+
+---
