@@ -126,7 +126,7 @@ In a SOC, incorrect sourcetype parsing or time parsing breaks correlation and ca
 
 | Q  | What was identified | Final Answer | Log source (domain) | Evidence |
 |---:|---|---|---|---|
-| Q1 | Suspicious User-Agent | `NaenaraBrowser/3.5b4` UA string | O365 management (cloud) | Fig. 3 |
+| Q1 | Suspicious User-Agent | `Mozilla/5.0 (X11; U; Linux i686; ko-KP; rv: 19.1br) Gecko/20130508 Fedora/1.9.1-2.5.rs3.0 NaenaraBrowser/3.5b4` UA string | O365 management (cloud) | Fig. 3 |
 | Q2 | Malicious attachment filename | `Frothly-Brewery-Financial-Planning-FY2019-Draft.xlsm` | SMTP (email) | Fig. 4 |
 | Q3 | Suspicious executable | `HxTsr.exe` | Sysmon (endpoint) | Fig. 5 |
 | Q4 | Linux account created | `ilovedavidverve` | osquery (endpoint) | Fig. 6 |
