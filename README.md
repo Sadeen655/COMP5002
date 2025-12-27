@@ -116,3 +116,23 @@ A SOC analyst should not begin investigation until the following are verified:
 **(A) Index visibility**
 ```spl
 index=botsv3 | head 10
+
+(B) Required sourcetype presence
+
+index=botsv3 sourcetype="ms:o365:management" | head 5
+index=botsv3 sourcetype="stream:smtp" | head 5
+index=botsv3 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" | head 5
+index=botsv3 sourcetype="WinEventLog:Security" | head 5
+index=botsv3 sourcetype="osquery:results" | head 5
+
+
+(C) Field sanity examples
+
+index=botsv3 sourcetype="WinEventLog:Security" EventCode=4720
+| table _time host Account_Name EventCode
+
+index=botsv3 sourcetype="osquery:results"
+| table _time host name columns.cmdline columns.uid columns.owner_uid
+
+
+In a SOC, incorrect sourcetype parsing or time parsing breaks correlation and can cause false conclusions. In this assessment, successful search results across each domain (Figures 3–10) indicate that the dataset is sufficiently prepared for analysis.
