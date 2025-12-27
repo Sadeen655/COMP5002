@@ -117,7 +117,7 @@ A SOC analyst should not begin investigation until the following are verified:
 ```spl
 index=botsv3 | head 10
 
-(B) Required sourcetype presence
+**(B) Required sourcetype presence**
 
 index=botsv3 sourcetype="ms:o365:management" | head 5
 index=botsv3 sourcetype="stream:smtp" | head 5
@@ -126,7 +126,7 @@ index=botsv3 sourcetype="WinEventLog:Security" | head 5
 index=botsv3 sourcetype="osquery:results" | head 5
 
 
-(C) Field sanity examples
+**(C) Field sanity examples**
 
 index=botsv3 sourcetype="WinEventLog:Security" EventCode=4720
 | table _time host Account_Name EventCode
