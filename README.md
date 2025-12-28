@@ -216,3 +216,44 @@ Creating a new local account on a Linux host is a classic persistence action. Th
 - Review suspicious listening services (Q7) and process lineage.
 
 ---
+## Q5 — Windows account creation
+
+### Answer
+svcvnc
+
+### SPL used
+`index=botsv3 sourcetype=WinEventLog:Security EventCode=4720`
+
+### Evidence
+Fig. 10 and Fig. 11 show EventCode 4720 for a new user account.
+
+### SOC interpretation
+Windows account creation is a high-severity signal when unexpected. The account name `svcvnc` appears “service-like,” which is a common attacker tradecraft: choose names that blend into administrative noise. This is a major pivot point for escalation: from “possible compromise” to “confirmed identity manipulation.” [8]
+
+### SOC next steps
+- Determine who created the account (subject fields, creator identity).
+- Search for subsequent logons or service creation by this account.
+- Correlate with privileged group membership changes (Q6).
+
+---
+
+## Q6 — Groups the Windows account was added to (privilege escalation)
+
+### Answer
+administrators,user
+
+### SPL used
+`index=botsv3 sourcetype=WinEventLog:Security (EventCode=4728 OR EventCode=4732 OR EventCode=4756 OR EventCode=4729 OR EventCode=4733 OR EventCode=4757) svcvnc`
+
+### Evidence
+Fig. 12 and Fig. 13 show membership activity tied to `svcvnc`, including `BUILTIN\Administrators` and `user`.
+
+### SOC interpretation
+This is one of the strongest “incident confirmation” points in the Q1–Q8 chain. A newly created account being added to Administrators means the attacker has successfully established privileged access. In a real environment, this is escalation-worthy immediately: privileged access enables disabling defenses, dumping credentials, running remote services, and lateral movement [5].
+
+### SOC response (conceptual)
+- Remove account from Administrators, disable the account, and reset affected credentials.
+- Identify all hosts where the account was used.
+- Trigger a broader hunt: other accounts created near the same time window.
+
+---
