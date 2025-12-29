@@ -282,3 +282,47 @@ A listening port on 0.0.0.0 means the service is reachable on all interfaces, wh
 
 ### SPL used
 index=botsv3 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1</EventID
+>" Hashes MD5 host="FYODOR-L"
+NOT "C:\\Windows\\system32\\cmd.exe"
+NOT "C:\\Windows\\system32\\svchost.exe"
+NOT "C:\\Windows\\explorer.exe"
+NOT "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+NOT "C:\\Windows\\System32\\services.exe"
+NOT "C:\\Windows\\system32\\cleanmgr.exe"
+NOT "C:\\Windows\\Temp\\unziped\\lsof-master\\l\\explorer.exe"
+svcvnc
+
+### Evidence
+Fig. 15 shows Sysmon EventID 1 and the MD5 value.
+
+### SOC interpretation
+Hashes turn behavioural suspicion into operational hunting. Once a hash is extracted, SOC teams can quickly search across endpoints and time ranges for recurrence. While MD5 is not modern cryptographic integrity, it remains commonly used in operational hunting as a lightweight identifier. In practice, SOC would enrich this hash with internal threat intel, EDR sightings, and reputation sources, then decide whether to block [7].
+
+---
+
+# 5. Conclusion
+
+## 5.1 Chain-of-evidence narrative
+Q1–Q8 collectively describe a coherent, SOC-plausible incident progression:
+
+1. Cloud anomaly (Q1): Unusual User-Agent accessing .lnk objects suggests suspicious or automated access in the Microsoft 365 environment.
+2. Delivery via email (Q2): Macro-enabled spreadsheet indicates phishing-like delivery.
+3. Execution (Q3): Sysmon shows a suspicious executable associated with document activity.
+4. Persistence/Identity manipulation (Q4, Q5): New accounts appear on Linux and Windows, suggesting persistence and expansion of control.
+5. Privilege escalation (Q6): The Windows account is granted Administrator membership, indicating high-impact compromise.
+6. Possible backdoor/service (Q7): A process listens on port 1337, potentially enabling remote control.
+7. IOC extracted (Q8): Hash supports scoping, hunting, and prevention.
+
+## 5.2 Detection engineering recommendations (SOC strategy)
+To prevent or detect similar patterns earlier, the SOC should implement layered detections.
+
+Table 2: Recommended detections derived from Q1–Q8
+(Insert Table 2 here)
+
+## 5.3 Response playbook improvements
+- Establish a playbook that triggers when account creation and admin group assignment are observed together (disable account + remove privileges + investigate creator).
+- Build a standard “macro attachment response” workflow: quarantine email, notify recipients, hunt for file execution, and isolate hosts if Sysmon confirms suspicious payloads.
+- Ensure that endpoint telemetry coverage is consistent across the fleet (Sysmon + Windows auditing + osquery) so that investigations do not rely on one log source.
+
+---
+
