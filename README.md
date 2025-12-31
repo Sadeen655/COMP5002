@@ -109,6 +109,7 @@ The environment was run via a **VM-based setup**, reflecting SOC lab practice be
 **Operational evidence**
 ![Figure 1](Picture1.jpeg)
 - Splunk web login page reachable (Fig. 1).
+![Figure 1](Picture2.jpeg)
 - VirtualBox VM exists and was used for BOTSv3 work (Fig. 2).
 
 ### 3.2 Data ingestion and readiness checks
@@ -148,6 +149,8 @@ Mozilla/5.0 (X11; U; Linux i686; ko-KP; rv: 19.1br) Gecko/20130508 Fedora/1.9.1-
 `index=botsv3 sourcetype="ms:o365:management" SourceFileExtension=lnk`
 
 ### Evidence
+![Figure 1](Picture3.jpeg)
+![Figure 1](Picture4.jpeg)
 Fig. 3 and Fig. 4 show the relevant O365 event and context.
 
 ### SOC interpretation
@@ -168,6 +171,8 @@ Frothly-Brewery-Financial-Planning-FY2019-Draft.xlsm
 `index=botsv3 sourcetype="stream:smtp" "attach_filename{}"="Malware Alert Text.txt"`
 
 ### Evidence
+![Figure 1](Picture5.jpeg)
+![Figure 1](Picture6.jpeg)
 Fig. 5 and Fig. 6 show the SMTP event and the attachment-related content.
 
 ### SOC interpretation
@@ -186,6 +191,7 @@ HxTsr.exe
 `index="botsv3" sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" xlsm`
 
 ### Evidence
+![Figure 1](Picture7.jpeg)
 Fig. 7 shows Sysmon evidence referencing the spreadsheet and the executable.
 
 ### SOC interpretation
@@ -206,6 +212,8 @@ ilovedavidverve
 `index="botsv3" host=hoth sourcetype="osquery:results" useradd "columns.owner_uid"=0`
 
 ### Evidence
+![Figure 1](Picture8.jpeg)
+![Figure 1](Picture9.jpeg)
 Fig. 8 and Fig. 9 show `useradd` with root context and the created username.
 
 ### SOC interpretation
@@ -226,6 +234,8 @@ svcvnc
 `index=botsv3 sourcetype=WinEventLog:Security EventCode=4720`
 
 ### Evidence
+![Figure 1](Picture10.jpeg)
+![Figure 1](Picture11.jpeg)
 Fig. 10 and Fig. 11 show EventCode 4720 for a new user account.
 
 ### SOC interpretation
@@ -247,6 +257,8 @@ administrators,user
 `index=botsv3 sourcetype=WinEventLog:Security (EventCode=4728 OR EventCode=4732 OR EventCode=4756 OR EventCode=4729 OR EventCode=4733 OR EventCode=4757) svcvnc`
 
 ### Evidence
+![Figure 1](Picture12.jpeg)
+![Figure 1](Picture13.jpeg)
 Fig. 12 and Fig. 13 show membership activity tied to `svcvnc`, including `BUILTIN\Administrators` and `user`.
 
 ### SOC interpretation
@@ -269,6 +281,7 @@ index=botsv3 host=hoth sourcetype=osquery:results 1337 (listening OR LISTEN)
 | sort - _time
 
 ### Evidence
+![Figure 1](Picture14.jpeg)
 Fig. 14 shows port 1337 listening with PID 14356 and address 0.0.0.0.
 
 ### SOC interpretation
@@ -294,6 +307,7 @@ NOT "C:\\Windows\\Temp\\unziped\\lsof-master\\l\\explorer.exe"
 svcvnc
 
 ### Evidence
+![Figure 1](Picture15.jpeg)
 Fig. 15 shows Sysmon EventID 1 and the MD5 value.
 
 ### SOC interpretation
