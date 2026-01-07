@@ -257,3 +257,28 @@ This is one of the strongest “incident confirmation” points in the Q1–Q8 c
 - Trigger a broader hunt: other accounts created near the same time window.
 
 ---
+## Q7 — PID listening on port 1337 (potential backdoor/service)
+
+### Answer
+14356
+
+### SPL used
+index=botsv3 host=hoth sourcetype=osquery:results 1337 (listening OR LISTEN)
+| table _time columns.address columns.port columns.protocol columns.state columns.pid columns.process_name
+| sort - _time
+
+### Evidence
+Fig. 14 shows port 1337 listening with PID 14356 and address 0.0.0.0.
+
+### SOC interpretation
+A listening port on 0.0.0.0 means the service is reachable on all interfaces, which increases risk. Port 1337 is commonly associated (in training and attacker culture) with non-standard services/backdoors rather than business applications. SOC investigation would pivot from PID to binary path and hash, and then check whether there are inbound connections or command-and-control patterns.
+
+---
+
+## Q8 — MD5 hash from Sysmon process creation
+
+### Answer
+586ef56f4d8963dd546163ac31c865d7
+
+### SPL used
+index=botsv3 sourcetype="XmlWinEventLog:Microsoft-Windows-Sysmon/Operational" "<EventID>1</EventID
