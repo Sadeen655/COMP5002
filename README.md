@@ -370,4 +370,4 @@ Table 2: Recommended detections derived from Q1–Q8
 
 # Appendix
 - Youtube link : https://youtu.be/sW-e9kXZ7CY  
-- GitHub reposotory: (add link here)
+- GitHub reposotory: https://github.com/Sadeen655/COMP5002.git
